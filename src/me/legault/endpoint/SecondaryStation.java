@@ -3,6 +3,7 @@ package me.legault.endpoint;
 import java.util.BitSet;
 
 import me.legault.hdlc.Frame;
+import me.legault.hdlc.UFrame;
 
 public class SecondaryStation extends Endpoint{
 
@@ -28,6 +29,10 @@ public class SecondaryStation extends Endpoint{
 			public boolean apply(BitSet stream) {
 				Frame frame = Frame.fromByteArray(stream);
 				println("Receiving frame " + frame);
+				
+				//Find the type of the frame
+				//if(frame instanceof UFrame)
+				
 				System.out.println(frame.getCommandType());
 				return false;
 			}

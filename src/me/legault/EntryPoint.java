@@ -2,7 +2,8 @@ package me.legault;
 
 import me.legault.endpoint.PrimaryStation;
 import me.legault.endpoint.SecondaryStation;
-import me.legault.hdlc.SFrame;
+import me.legault.hdlc.CompactBitSet;
+import me.legault.hdlc.IFrame;
 
 public class EntryPoint {
 	
@@ -17,6 +18,6 @@ public class EntryPoint {
 		SecondaryStation stationA = new SecondaryStation("A", HOSTNAME, PORT_NUMBER);
 		stationA.start();
 		
-		primaryStation.sendCommand(new SFrame(SFrame.RR));
+		primaryStation.sendCommand(new IFrame(CompactBitSet.fromBytes((byte) 0x34)));
 	}
 }

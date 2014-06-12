@@ -68,10 +68,14 @@ public abstract class Frame {
 		data = data.get(start, end);
 
 		Frame frame = null;
-		byte[] header = data.get(8, 23).toByteArray();
+		byte[] header = CompactBitSet.fromBitSet(data, 8, 24).toByteArray();
 		byte controlByte = header[1];
 		if (SFrame.isFrameTypeValid(controlByte))
 			frame = new SFrame((byte) 0);
+		else if(UFrame.isFrameTypeValid(controlByte))
+			frame = new UFrame((byte) 0);
+		else if (IFrame.isFrameTypeValid(controlByte))
+			frame = new IFrame(new CompactBitSet());
 		else
 			throw new InvalidFrameException(
 					"Frame type not recognize from the control byte: "

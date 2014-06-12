@@ -163,6 +163,10 @@ public class UFrame extends Frame {
 	 * Beacon BCN
 	*/
 	public static final short BCN= 0xEF;
+	
+	public UFrame(byte type){
+		setControl((byte)0, (byte)0, type);
+	}
 
 	@Override
 	public void setControl(byte nr, byte pf, byte type) {
@@ -172,8 +176,11 @@ public class UFrame extends Frame {
 
 	@Override
 	public byte getCommandType() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (byte) (control & 0xEC);
+	}
+	
+	public static boolean isFrameTypeValid(byte controlByte) {
+		return (controlByte & 0x03) == 0x03;
 	}
 
 }
